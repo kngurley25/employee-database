@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 
-const getDepartments = require("./utils/queries");
+const { getDepartments, getRoles, getEmployees } = require("./utils/queries");
 
 
 
@@ -34,11 +34,13 @@ const verifyAction = (answer) => {
     switch (action) {
         case "View all departments":
             getDepartments();
-            break
+            break;
         case "View all roles":
-            console.log("test two");
+            getRoles();
+            break;
         case "View all employees":
-            console.log("test two");
+            getEmployees();
+            break;
         case "Add a department":
             console.log("test two");
         case "Add a role":
