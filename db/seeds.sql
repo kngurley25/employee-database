@@ -12,7 +12,7 @@ VALUES
     ("Mechanical Engineer", 120000, 2),
     ("Process Engineer", 130000, 2),
     ("Electrical Superintendent", 140000, 3),
-    ("Construction Project Manager", 180,000, 3);
+    ("Construction Project Manager", 180000, 3);
 
 INSERT INTO employees (first_name, last_name, role_id, manager_id)
 VALUES
@@ -26,5 +26,6 @@ VALUES
     ("Kyle", "Chadwick", 4, 2),
     ("Brenna", "Brazenski", 5, 1),
     ("Kevin", "Wellington", 5, 2),
-    ("Rick", "Hatfield", 6, 7),
-    ("Leah", "Baker", 7, NULL);
+    ("Leah", "Baker", 7, NULL),
+    ("Rick", "Hatfield", 6, 12);
+    

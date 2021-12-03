@@ -29,7 +29,27 @@ const initialPrompt = () => {
 
 const verifyAction = (answer) => {
     const action = answer.action;
-    console.log(action);
+
+    switch (action) {
+        case "View all departments":
+            console.log("test one");
+            break
+        case "View all roles":
+            console.log("test two");
+        case "View all employees":
+            console.log("test two");
+        case "Add a department":
+            console.log("test two");
+        case "Add a role":
+            console.log("test two");
+        case "Add an employee":
+            console.log("test two");
+        case "Update employee role":
+            console.log("test two");
+        case "Quit":
+            console.log("test two");
+    }
+    
 }
 
 initialPrompt();
