@@ -1,5 +1,6 @@
 const inquirer = require("inquirer");
 
+const getDepartments = require("./utils/queries");
 
 
 
@@ -32,7 +33,7 @@ const verifyAction = (answer) => {
 
     switch (action) {
         case "View all departments":
-            console.log("test one");
+            getDepartments();
             break
         case "View all roles":
             console.log("test two");
@@ -49,7 +50,6 @@ const verifyAction = (answer) => {
         case "Quit":
             console.log("test two");
     }
-    
 }
 
 initialPrompt();
