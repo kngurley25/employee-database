@@ -83,14 +83,27 @@ const verifyAction = (answer) => {
         case "Add an employee":
             inquirer.prompt(employeePrompts)
             .then(answer => {
-                const employee = new Employee(answer.firstName, answer.lastName, answer.role);
+                const employee = new Employee(answer.firstName, answer.lastName, answer.role, answer.manager);
+                if (answer.manager != "NONE") {
+                   employee.getRoleId()
+                   .then(([rows]) => {
+                       const roleId = rows.map(obj => {return obj.id})
+                       employee.getManagerId()
+                       .then(([rows]) => {
+                           const managerId = rows.map(obj => {return obj.id})
+                           employee.addEmployee(roleId, managerId);
+                        })
+                    })
+                    // console.log("Added " + answer.firstName + " to the database");
+                    // initialPrompt();
+                }
                 employee.getRoleId()
                 .then(([rows]) => {
                     const roleId = rows.map(obj => {
                         return obj.id;
                     })
                     employee.addEmployee(roleId);
-                })
+                })     
                 console.log("Added " + answer.firstName + " to the database");
                 initialPrompt();
             })
