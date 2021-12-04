@@ -1,7 +1,13 @@
+// import pacakges
 const inquirer = require("inquirer");
+
+// import module references
+const Query = require("./lib/Query");
 const actionPrompts = require("./utils/actionPrompts");
 
-const { getDepartments, getRoles, getEmployees } = require("./utils/queries");
+function init () {
+    initialPrompt();
+}
 
 const initialPrompt = () => {
     inquirer.prompt(actionPrompts)
@@ -15,7 +21,8 @@ const verifyAction = (answer) => {
 
     switch (action) {
         case "View all departments":
-            getDepartments();
+            const query = new Query();
+            query.getDepartments();
             break;
         case "View all roles":
             getRoles();
@@ -36,4 +43,4 @@ const verifyAction = (answer) => {
     }
 }
 
-initialPrompt();
+init();
