@@ -28,7 +28,6 @@ const getEmployees = function() {
     })
 }
 
-
 module.exports = {
     getDepartments,
     getRoles,
