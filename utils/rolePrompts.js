@@ -1,6 +1,6 @@
 const Query = require("../lib/Query");
 const departments = [];
-new Query().getDepartmentChoices()
+new Query().getDepartmentNames()
     .then(([rows, fields]) => {
         const departmentArray = rows.map(obj => {
             return obj.name;
@@ -11,11 +11,10 @@ new Query().getDepartmentChoices()
         }
     })
 
-
 const rolePrompts = [
     {
         type: "input",
-        name: "role",
+        name: "title",
         message: "Enter the name of the role:",
         validate: input => {
             if (input) {

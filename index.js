@@ -6,6 +6,8 @@ const cTable = require("console.table");
 const db = require("./db/connection");
 const Query = require("./lib/Query");
 const Department = require("./lib/Department");
+const Role = require("./lib/Role");
+
 const actionPrompts = require("./utils/actionPrompts");
 const departmentPrompts = require("./utils/departmentPrompts");
 const rolePrompts = require("./utils/rolePrompts");
@@ -63,7 +65,15 @@ const verifyAction = (answer) => {
         case "Add a role":
             inquirer.prompt(rolePrompts)
             .then(answer => {
-                console.log("this here");
+                const role = new Role(answer.title, answer.salary, answer.department);
+                role.getDepartmentId()
+                .then(([rows]) => {
+                    const departmentId = rows.map(obj => {
+                        return obj.id;
+                    })
+                    role.addRole(departmentId);
+                })
+                console.log("Added " + answer.title + " to the database");
             })
             break;
 
