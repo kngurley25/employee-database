@@ -1,5 +1,16 @@
 const Query = require("../lib/Query");
-const choices = new Query().getDepartmentChoices();
+const departments = [];
+new Query().getDepartmentChoices()
+    .then(([rows, fields]) => {
+        const departmentArray = rows.map(obj => {
+            return obj.name;
+        })
+        for (let i = 0; i < departmentArray.length; i ++) {
+            const listItem = departmentArray[i];
+            departments.push(listItem);
+        }
+    })
+
 
 const rolePrompts = [
     {
@@ -32,7 +43,7 @@ const rolePrompts = [
         type: "list",
         name: "department",
         message: "Which department does the role belong to?",
-        choices: choices
+        choices: departments
     }
 ]
 
