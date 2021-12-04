@@ -24,7 +24,7 @@ const initialPrompt = () => {
         }
     ])
     .then(answer => {
-        verifyAction(answer);
+        verifyAction(answer)
     });
 };
 
@@ -55,3 +55,4 @@ const verifyAction = (answer) => {
 }
 
 initialPrompt();
+

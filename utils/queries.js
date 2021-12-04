@@ -1,27 +1,36 @@
-const db = require("../db/connection");
-
 const cTable = require("console.table");
 
+const db = require("../db/connection");
+
 const getDepartments = function() {
-    db.query("SELECT * FROM departments", function (err, results) {
-        console.table(results);
+    const sql = "SELECT * FROM departments";
+    db.promise().query(sql)
+    .then(([rows, fields]) => {
+        console.table(rows);
+    })
+    .then(() => db.end())
+    .then(() => {
+        console.log("this here");
     })
 }
 
 const getRoles = function() {
-    db.query("SELECT * FROM roles", function (err, results) {
+    const sql = "SELECT * FROM roles";
+    db.query(sql, function (err, results) {
         console.table(results);
     })
 }
 
 const getEmployees = function() {
-    db.query("SELECT * FROM employees", function (err, results) {
+    const sql = "SELECT * FROM employees"
+    db.query(sql, function (err, results) {
         console.table(results);
     })
 }
+
 
 module.exports = {
     getDepartments,
     getRoles,
     getEmployees
-}
+};
