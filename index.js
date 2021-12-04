@@ -7,12 +7,13 @@ const db = require("./db/connection");
 const Query = require("./lib/Query");
 const Department = require("./lib/Department");
 const Role = require("./lib/Role");
+const Employee = require("./lib/Employee");
 
 const actionPrompts = require("./utils/actionPrompts");
 const departmentPrompts = require("./utils/departmentPrompts");
 const rolePrompts = require("./utils/rolePrompts");
 const employeePrompts = require("./utils/employeePrompts");
-const Employee = require("./lib/Employee");
+const updateRolePrompts = require("./utils/updateRolePrompts");
 
 function init () {
     initialPrompt();
@@ -94,8 +95,6 @@ const verifyAction = (answer) => {
                            employee.addEmployee(roleId, managerId);
                         })
                     })
-                    // console.log("Added " + answer.firstName + " to the database");
-                    // initialPrompt();
                 }
                 employee.getRoleId()
                 .then(([rows]) => {
@@ -110,7 +109,25 @@ const verifyAction = (answer) => {
             break;
 
         case "Update employee role":
-            console.log("test two");
+            inquirer.prompt(updateRolePrompts)
+            .then(answer => {
+                const firstName = answer.employee.split(" ")[0];
+                const lastName = answer.employee.split(" ")[1];
+                const newRole = answer.role;
+                const employeeInst = new Employee(firstName, lastName, newRole);
+                employeeInst.getRoleId()
+                .then(([rows]) => {
+                    const roleId = rows.map(obj => {return obj.id})
+                    employeeInst.getEmployeeId()
+                    .then(([rows]) => {
+                        const employeeId = rows.map(obj => {return obj.id})
+                        console.log(employeeId);
+                        employeeInst.updateRole(roleId, employeeId)
+                    })
+                })
+                console.log("Employee role updated for " + answer.employee);
+                initialPrompt();
+            })
             break;
 
         case "Quit":

@@ -1,6 +1,7 @@
 const Query = require("../lib/Query");
 const roles = [];
 const managers = ["NONE"];
+
 new Query().getRoleTitles()
     .then(([rows, fields]) => {
         const rolesArray = rows.map(obj => {
