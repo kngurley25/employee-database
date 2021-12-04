@@ -3,11 +3,12 @@ const inquirer = require("inquirer");
 const cTable = require("console.table");
 
 // import module references
+const db = require("./db/connection");
 const Query = require("./lib/Query");
 const Department = require("./lib/Department");
 const actionPrompts = require("./utils/actionPrompts");
 const departmentPrompts = require("./utils/departmentPrompts");
-const db = require("./db/connection");
+const rolePrompts = require("./utils/rolePrompts");
 
 function init () {
     initialPrompt();
@@ -32,6 +33,7 @@ const verifyAction = (answer) => {
                 initialPrompt();
             });
             break;
+
         case "View all roles":
             query.getRoles()
             .then(([rows, fields]) => {
@@ -39,6 +41,7 @@ const verifyAction = (answer) => {
                 initialPrompt();
             });
             break;
+
         case "View all employees":
             query.getEmployees()
             .then(([rows, fields]) => {
@@ -46,6 +49,7 @@ const verifyAction = (answer) => {
                 initialPrompt();
             });
             break;
+
         case "Add a department":
             inquirer.prompt(departmentPrompts)
             .then(answer => {
@@ -55,15 +59,22 @@ const verifyAction = (answer) => {
                 initialPrompt();
             })
             break;
+
         case "Add a role":
-            console.log("test two");
+            inquirer.prompt(rolePrompts)
+            .then(answer => {
+                console.log("this here");
+            })
             break;
+
         case "Add an employee":
             console.log("test two");
             break;
+
         case "Update employee role":
             console.log("test two");
             break;
+
         case "Quit":
             console.log("Goodbye!");
             db.end();
