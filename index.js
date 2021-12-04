@@ -5,6 +5,7 @@ const cTable = require("console.table");
 // import module references
 const Query = require("./lib/Query");
 const actionPrompts = require("./utils/actionPrompts");
+const db = require("./db/connection");
 
 function init () {
     initialPrompt();
@@ -26,15 +27,22 @@ const verifyAction = (answer) => {
             query.getDepartments()
             .then(([rows, fields]) => {
                 console.table(rows);
-                return rows;
-            })
-            .then(rows => initialPrompt());
+                initialPrompt();
+            });
             break;
         case "View all roles":
-            query.getRoles();
+            query.getRoles()
+            .then(([rows, fields]) => {
+                console.table(rows);
+                initialPrompt();
+            });
             break;
         case "View all employees":
-            getEmployees();
+            query.getEmployees()
+            .then(([rows, fields]) => {
+                console.table(rows);
+                initialPrompt();
+            });
             break;
         case "Add a department":
             console.log("test two");
@@ -45,10 +53,9 @@ const verifyAction = (answer) => {
         case "Update employee role":
             console.log("test two");
         case "Quit":
-            console.log("test two");
+            console.log("Goodbye!");
+            db.end();
     }
-
-    initialPrompt();
 }
 
 init();
