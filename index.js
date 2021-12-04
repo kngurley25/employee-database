@@ -1,10 +1,12 @@
-// import pacakges
+// import packages
 const inquirer = require("inquirer");
 const cTable = require("console.table");
 
 // import module references
 const Query = require("./lib/Query");
+const Department = require("./lib/Department");
 const actionPrompts = require("./utils/actionPrompts");
+const departmentPrompts = require("./utils/departmentPrompts");
 const db = require("./db/connection");
 
 function init () {
@@ -45,13 +47,23 @@ const verifyAction = (answer) => {
             });
             break;
         case "Add a department":
-            console.log("test two");
+            inquirer.prompt(departmentPrompts)
+            .then(answer => {
+                const department = new Department(answer.department);
+                department.addDepartment();
+                console.log("Added " + answer.department + " to the database");
+                initialPrompt();
+            })
+            break;
         case "Add a role":
             console.log("test two");
+            break;
         case "Add an employee":
             console.log("test two");
+            break;
         case "Update employee role":
             console.log("test two");
+            break;
         case "Quit":
             console.log("Goodbye!");
             db.end();
