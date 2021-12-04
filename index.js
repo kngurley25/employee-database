@@ -1,5 +1,6 @@
 // import pacakges
 const inquirer = require("inquirer");
+const cTable = require("console.table");
 
 // import module references
 const Query = require("./lib/Query");
@@ -18,14 +19,19 @@ const initialPrompt = () => {
 
 const verifyAction = (answer) => {
     const action = answer.action;
+    const query = new Query();
 
     switch (action) {
         case "View all departments":
-            const query = new Query();
-            query.getDepartments();
+            query.getDepartments()
+            .then(([rows, fields]) => {
+                console.table(rows);
+                return rows;
+            })
+            .then(rows => initialPrompt());
             break;
         case "View all roles":
-            getRoles();
+            query.getRoles();
             break;
         case "View all employees":
             getEmployees();
@@ -41,6 +47,8 @@ const verifyAction = (answer) => {
         case "Quit":
             console.log("test two");
     }
+
+    initialPrompt();
 }
 
 init();
