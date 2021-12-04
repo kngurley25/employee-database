@@ -11,6 +11,8 @@ const Role = require("./lib/Role");
 const actionPrompts = require("./utils/actionPrompts");
 const departmentPrompts = require("./utils/departmentPrompts");
 const rolePrompts = require("./utils/rolePrompts");
+const employeePrompts = require("./utils/employeePrompts");
+const Employee = require("./lib/Employee");
 
 function init () {
     initialPrompt();
@@ -74,11 +76,24 @@ const verifyAction = (answer) => {
                     role.addRole(departmentId);
                 })
                 console.log("Added " + answer.title + " to the database");
+                initialPrompt();
             })
             break;
 
         case "Add an employee":
-            console.log("test two");
+            inquirer.prompt(employeePrompts)
+            .then(answer => {
+                const employee = new Employee(answer.firstName, answer.lastName, answer.role);
+                employee.getRoleId()
+                .then(([rows]) => {
+                    const roleId = rows.map(obj => {
+                        return obj.id;
+                    })
+                    employee.addEmployee(roleId);
+                })
+                console.log("Added " + answer.firstName + " to the database");
+                initialPrompt();
+            })
             break;
 
         case "Update employee role":
