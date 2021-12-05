@@ -96,14 +96,15 @@ const verifyAction = (answer) => {
                            employee.addEmployee(roleId, managerId);
                         })
                     })
-                }
+                } else {
                 employee.getRoleId()
                 .then(([rows]) => {
                     const roleId = rows.map(obj => {
                         return obj.id;
                     })
                     employee.addEmployee(roleId);
-                })     
+                })
+                }     
                 console.log("Added " + answer.firstName + " to the database");
                 initialPrompt();
             })
