@@ -13,7 +13,7 @@ new Query().getManagerFullNames()
         }
     })
     
-new Query().getRoleTitles()
+new Query().getRoles()
     .then(([rows, fields]) => {
         const rolesArray = rows.map(obj => {
             return obj.title;

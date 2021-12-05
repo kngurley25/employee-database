@@ -1,6 +1,7 @@
 const Query = require("../lib/Query");
+
 const departments = [];
-new Query().getDepartmentNames()
+new Query().getDepartments()
     .then(([rows, fields]) => {
         const departmentArray = rows.map(obj => {
             return obj.name;

@@ -2,7 +2,7 @@ const Query = require("../lib/Query");
 const roles = [];
 const managers = ["NONE"];
 
-new Query().getRoleTitles()
+new Query().getRoles()
     .then(([rows, fields]) => {
         const rolesArray = rows.map(obj => {
             return obj.title;
@@ -12,6 +12,7 @@ new Query().getRoleTitles()
             roles.push(listItem);
         }
     })
+    
 new Query().getManagerFullNames()
     .then(([rows, fields]) => { 
         const managersArray = rows.map(obj => {
