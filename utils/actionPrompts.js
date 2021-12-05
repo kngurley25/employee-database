@@ -11,6 +11,7 @@ const actionPrompts = [
             "Add a role",
             "Add an employee",
             "Update employee role",
+            "Update employee manager",
             "Quit"
         ]
     }

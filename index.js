@@ -14,6 +14,7 @@ const departmentPrompts = require("./utils/departmentPrompts");
 const rolePrompts = require("./utils/rolePrompts");
 const employeePrompts = require("./utils/employeePrompts");
 const updateRolePrompts = require("./utils/updateRolePrompts");
+const updateManagerPrompts = require("./utils/updateManagerPrompts");
 
 function init () {
     initialPrompt();
@@ -66,7 +67,7 @@ const verifyAction = (answer) => {
             break;
 
         case "Add a role":
-            inquirer.prompt(rolePrompts)
+            (inquirer.prompt(rolePrompts))
             .then(answer => {
                 const role = new Role(answer.title, answer.salary, answer.department);
                 role.getDepartmentId()
@@ -121,7 +122,6 @@ const verifyAction = (answer) => {
                     employeeInst.getEmployeeId()
                     .then(([rows]) => {
                         const employeeId = rows.map(obj => {return obj.id})
-                        console.log(employeeId);
                         employeeInst.updateRole(roleId, employeeId)
                     })
                 })
@@ -130,10 +130,32 @@ const verifyAction = (answer) => {
             })
             break;
 
+        case "Update employee manager":
+            inquirer.prompt(updateManagerPrompts)
+            .then(answer => {
+                const firstName = answer.employee.split(" ")[0];
+                const lastName = answer.employee.split(" ")[1];
+                const newManager = answer.manager;
+                const employeeInst = new Employee(firstName, lastName, "", newManager);
+                employeeInst.getManagerId()
+                .then(([rows]) => {
+                    const managerId = rows.map(obj => {return obj.id})
+                    employeeInst.getEmployeeId()
+                    .then(([rows]) => {
+                        const employeeId = rows.map(obj => {return obj.id})
+                        employeeInst.updateManager(managerId, employeeId)
+                    })
+                })
+                console.log("Employee manager updated for " + answer.employee);
+                initialPrompt();
+            })
+            break;
+
         case "Quit":
             console.log("Goodbye!");
             db.end();
     }
+    return action;
 }
 
 init();
