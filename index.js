@@ -49,7 +49,7 @@ const verifyAction = (answer) => {
             break;
 
         case "View all employees":
-            query.getEmployees()
+            query.viewEmployees()
             .then(([rows, fields]) => {
                 console.table(rows);
                 initialPrompt();
