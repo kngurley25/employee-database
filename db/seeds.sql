@@ -2,7 +2,8 @@ INSERT INTO departments (name)
 VALUES
     ("Architecture"),
     ("Engineering"),
-    ("Construction");
+    ("Construction"),
+    ("Corporate");
 
 INSERT INTO roles (title, salary, department_id)
 VALUES

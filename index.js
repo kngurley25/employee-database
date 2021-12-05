@@ -41,7 +41,7 @@ const verifyAction = (answer) => {
             break;
 
         case "View all roles":
-            query.getRoles()
+            query.viewRoles()
             .then(([rows, fields]) => {
                 console.table(rows);
                 initialPrompt();
